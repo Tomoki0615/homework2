@@ -23,6 +23,30 @@
                 text-align: left;
             }
             </style>
+        <style type="text/css">
+            .imgPreview {
+        
+        
+                display: none;
+                top: 0;
+                left: 0;
+                width: 100%; /*容器佔滿整個螢幕*/
+                height: 100%;
+                position: fixed;
+                background: rgba(0, 0, 0, 0.5);
+            }
+    
+            .imgPreview img {
+        
+        
+                z-index: 100;
+                width: 60%;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+        </style>
     </head>
     <body>
         <!-- Navigation-->
@@ -57,6 +81,11 @@
             </div>
         </header>
         <!-- Main Content-->
+<!-- ================================================================================================================================================================================== -->
+        <div class="imgPreview" onclick="unPreview()">
+            <img src="#" alt="" id="imgPreview">
+        </div>
+<!-- ================================================================================================================================================================================== -->
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
@@ -144,8 +173,8 @@
         var options = {
                 series: {
                     pie: {show: true},
-
-                }
+                },
+                legend: {show: false}
             };
 
         $.plot($("#flotcontainer"), data, options);  
@@ -156,14 +185,14 @@
     count++
   	$('#addpic').append('<div id="imgfile'+count+'">\
     <input type="file" onchange="show_preview(this)">\
-    <img scr"#" style="display:none;max-height:10%;max-width:20%" > </div>'
+    <img scr"#" style="display:none;max-height:10%;max-width:20%" onclick="pic_enlarge(this)" > </div>'
     );
   }
     //圖片預覽
     function show_preview(input){
     if(input.files && input.files[0]){
-      console.log(input.files);
-      console.log(input.files[0]);
+    //   console.log(input.files);
+    //   console.log(input.files[0]);
       var reader = new FileReader();
       reader.readAsDataURL(input.files[0]);
       reader.onload = function c(e){
@@ -176,7 +205,13 @@
 
   // 圖片放大
   function pic_enlarge(pic){
+    var img=$(pic).attr('src');
+    $('.imgPreview img').attr('src',img);
+    $('.imgPreview').show();
+  }
 
+  function unPreview(){
+      $('.imgPreview').hide();
   }
 
   //刪除圖片
