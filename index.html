@@ -82,12 +82,12 @@
                     <hr class="my-4" />
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <div class="row" style="margin-top: 10px; text-align: center;">
-                            <button onclick="add_pic()" class="btn btn-primary col-2" type="button" id="add_pic">添加一份照片</button>
-                            <button onclick="delete_pic()" style="margin-left: 5px ;" class="btn btn-outline-secondary col-2" type="button">刪除照片</button>
-                          </div>
+                        <div>
+                            <button onclick="add_pic()" class="btn btn-primary text-uppercase" type="button" id="add_pic">添加一份照片</button>
+                            <button onclick="delete_pic()"class="btn btn-primary text-uppercase" type="button">刪除照片</button>
+                        </div>
                               <div id="addpic">
-                          </div>
+                        </div>  
                     </div>
                     <!-- Pager-->
                     <!-- <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div> -->
@@ -132,6 +132,7 @@
     <script src="http://static.pureexample.com/js/flot/jquery.flot.min.js"></script>
     <script src="http://static.pureexample.com/js/flot/jquery.flot.pie.min.js"></script>
 <script>
+    var count;
     // 圓餅圖
     $(function () { 
         var data = [
@@ -155,7 +156,7 @@
     count++
   	$('#addpic').append('<div id="imgfile'+count+'">\
     <input type="file" onchange="show_preview(this)">\
-    <img scr"#" style="display:none;max-height:10%;max-width:20%" onclick="pic_enlarge(this)" > </div>'
+    <img scr"#" style="display:none;max-height:10%;max-width:20%" > </div>'
     );
   }
     //圖片預覽
@@ -168,21 +169,23 @@
       reader.onload = function c(e){
         var img =$(input).parent().find('img');
         img.attr('src', e.target.result);
-        img.css('inline');
+        img.css('display','inline');
       }
     }
   }
+
+  // 圖片放大
   function pic_enlarge(pic){
-    
+
   }
 
   //刪除圖片
   function delete_pic(){
-    var imgfile=document.querySelector("#imgfile");
-    var pictest=document.querySelector("#pictest");
-    imgfile.remove();
-    pictest.remove();
-  }
+        if (count == 0) return;
+        var re_id = '#imgfile' + count 
+        $(re_id).remove()
+        count--
+    }
 
 </script>
 
