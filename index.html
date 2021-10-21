@@ -14,39 +14,15 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        
+         
         <!-- CSS -->
-        <style type="text/css">
+         <style type="text/css">
             #flotcontainer {
                 width: 500px ;
                 height: 200px;
-                text-align: left;
+                 text-align: left;
             }
-            </style>
-        <style type="text/css">
-            .imgPreview {
-        
-        
-                display: none;
-                top: 0;
-                left: 0;
-                width: 100%; /*容器佔滿整個螢幕*/
-                height: 100%;
-                position: fixed;
-                background: rgba(0, 0, 0, 0.5);
-            }
-    
-            .imgPreview img {
-        
-        
-                z-index: 100;
-                width: 60%;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%,-50%);
-            }
-        </style>
+         </style>
     </head>
     <body>
         <!-- Navigation-->
@@ -81,11 +57,6 @@
             </div>
         </header>
         <!-- Main Content-->
-<!-- ================================================================================================================================================================================== -->
-        <div class="imgPreview" onclick="unPreview()">
-            <img src="#" alt="" id="imgPreview">
-        </div>
-<!-- ================================================================================================================================================================================== -->
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
@@ -101,22 +72,12 @@
                     <hr class="my-4" />
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <a href="post.html"><h2 class="post-title">台灣中央氣象局API導入測試</h2></a>
+                        <a href="post.html"><h2 class="post-title">台灣中央氣象局API導入測試與圖片的放大縮小</h2></a>
                         <p class="post-meta">
                             Posted by
                             <a href="#!">賴鵬宇</a>
                             on October 21, 2021
                         </p>
-                    </div>
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <div>
-                            <button onclick="add_pic()" class="btn btn-primary text-uppercase" type="button" id="add_pic">添加一份照片</button>
-                            <button onclick="delete_pic()"class="btn btn-primary text-uppercase" type="button">刪除照片</button>
-                        </div>
-                              <div id="addpic">
-                        </div>  
                     </div>
                     <!-- Pager-->
                     <!-- <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div> -->
@@ -180,47 +141,6 @@
         $.plot($("#flotcontainer"), data, options);  
     });
 
-//新增圖片方法
-  function add_pic(){
-    count++
-  	$('#addpic').append('<div id="imgfile'+count+'">\
-    <input type="file" onchange="show_preview(this)">\
-    <img scr"#" style="display:none;max-height:10%;max-width:20%" onclick="pic_enlarge(this)" > </div>'
-    );
-  }
-    //圖片預覽
-    function show_preview(input){
-    if(input.files && input.files[0]){
-    //   console.log(input.files);
-    //   console.log(input.files[0]);
-      var reader = new FileReader();
-      reader.readAsDataURL(input.files[0]);
-      reader.onload = function c(e){
-        var img =$(input).parent().find('img');
-        img.attr('src', e.target.result);
-        img.css('display','inline');
-      }
-    }
-  }
-
-  // 圖片放大
-  function pic_enlarge(pic){
-    var img=$(pic).attr('src');
-    $('.imgPreview img').attr('src',img);
-    $('.imgPreview').show();
-  }
-
-  function unPreview(){
-      $('.imgPreview').hide();
-  }
-
-  //刪除圖片
-  function delete_pic(){
-        if (count == 0) return;
-        var re_id = '#imgfile' + count 
-        $(re_id).remove()
-        count--
-    }
 
 </script>
 

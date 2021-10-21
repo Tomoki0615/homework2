@@ -14,6 +14,29 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+
+        <!-- CSS  -->
+
+        <style type="text/css">
+            .imgPreview {
+                display: none;
+                top: 0;
+                left: 0;
+                width: 100%; /*容器佔滿整個螢幕*/
+                height: 100%;
+                position: fixed;
+                background: rgba(0, 0, 0, 0.5);
+            }
+            
+            .imgPreview img {
+                z-index: 100;
+                width: 60%;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+         </style>
     </head>
     <body>
         <!-- Navigation-->
@@ -52,6 +75,11 @@
             </div>
         </header>
         <!-- Post Content-->
+<!-- ================================================================================================================================================================================== -->
+        <div class="imgPreview" onclick="unPreview()">
+            <img src="#" alt="" id="imgPreview">
+        </div>
+<!-- ================================================================================================================================================================================== -->
         <article class="mb-4">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -112,6 +140,16 @@
                     </div>
                 </div>
             </div>
+            <hr class="my-4" />
+            <!-- Post preview-->
+            <div class="post-preview">
+                <div>
+                    <button onclick="add_pic()" class="btn btn-primary text-uppercase" type="button" id="add_pic">添加一份照片</button>
+                    <button onclick="delete_pic()"class="btn btn-primary text-uppercase" type="button">刪除照片</button>
+                </div>
+                      <div id="addpic">
+                </div>  
+            </div>
         </article>
         <!-- Footer-->
         <footer class="border-top">
@@ -149,6 +187,50 @@
 </html>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
+    var count;
+    //新增圖片方法
+  function add_pic(){
+    count++
+  	$('#addpic').append('<div id="imgfile'+count+'">\
+    <input type="file" onchange="show_preview(this)">\
+    <img scr"#" style="display:none;max-height:10%;max-width:20%" onclick="pic_enlarge(this)" > </div>'
+    );
+  }
+    //圖片預覽
+    function show_preview(input){
+    if(input.files && input.files[0]){
+    //   console.log(input.files);
+    //   console.log(input.files[0]);
+      var reader = new FileReader();
+      reader.readAsDataURL(input.files[0]);
+      reader.onload = function c(e){
+        var img =$(input).parent().find('img');
+        img.attr('src', e.target.result);
+        img.css('display','inline');
+      }
+    }
+  }
+
+  // 圖片放大
+  function pic_enlarge(pic){
+    var img=$(pic).attr('src');
+    $('.imgPreview img').attr('src',img);
+    $('.imgPreview').show();
+  }
+
+  function unPreview(){
+      $('.imgPreview').hide();
+  }
+
+  //刪除圖片
+  function delete_pic(){
+        if (count == 0) return;
+        var re_id = '#imgfile' + count 
+        $(re_id).remove()
+        count--
+    }
+
+
     $(document).ready(function() {
         $.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-7F4EA107-DC37-4607-83E4-0CCDA70E4829&format=JSON&locationName=%E8%87%BA%E4%B8%AD%E5%B8%82",function(data){
             let city = data.records.location[0].locationName;
