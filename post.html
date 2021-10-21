@@ -58,62 +58,55 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="container">
                             <div class="main-block">
-                            <h1>城市</h1>
-                            <p id="city"></p>
-                            <p id="time"></p>
+                                <p id = datasetdescription>十二小時天氣預報</p>
+                                <h1>城市</h1>
+                                <p id="city"></p>
                             </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
                             <div class="side-block">
-                                <h2>區域</h2>
-                                <p id="district"></p>
+                                <h2>起始時間</h2>
+                                <p id="startTime"></p>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                                <h2>結束時間</h2>
+                                <p id="endTime"></p>
                             </div>
-                            <div class="date1">
-                                <h4>平均溫度</h4>
-                                <p id="date1"></p>
-                            </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
                             <div class="date3">
-                                <h4>平均相對濕度</h4>
-                                <p id="date3"></p>
+                                <h4>降雨機率</h4>
+                                <p id="PoP"></p>
                             </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />                            
                             <div class="date4">
-                                <h4>最小舒適指數</h4>
-                                <p id="date4"></p>
+                                <h4>舒適度</h4>
+                                <p id="CI"></p>
                             </div>
-                            <div class="date5">
-                                <h4>最大風速</h4>
-                                <p id="date5"></p>
-                            </div>
-                            <div class="date6">
-                                <h4>最高體感溫度</h4>
-                                <p id="date6"></p>
-                            </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />                            
                             <div class="date7">
                                 <h4>天氣現象</h4>
-                                <p id="date7"></p>
+                                <p id="Wx"></p>
                             </div>
-                            
-                            <div class="date8">
-                                <h4>最大舒適指數</h4>
-                                <p id="date8"></p>
-                            </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />                        
                             <div class="date9">
                                 <h4>最低溫度</h4>
-                                <p id="date9"></p>
+                                <p id="MinT"></p>
                             </div>
-                            <div class="date11">
-                                <h4>最低體感溫度</h4>
-                                <p id="date11"></p>
-                            </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />                        
                             <div class="date12">
                                 <h4>最高溫度</h4>
-                                <p id="date12"></p>
+                                <p id="MaxT"></p>
                             </div>
-                            <div class="date13">
-                                <h4>風向</h4>
-                                <p id="date13"></p>
-                            </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />                            
                             <div class="date14">
                                 <h4>平均溫度</h4>
-                                <p id="date14"></p>
+                                <p id="T"></p>
                             </div>
                         </div>
                     </div>
@@ -159,7 +152,35 @@
     $(document).ready(function() {
         $.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-7F4EA107-DC37-4607-83E4-0CCDA70E4829&format=JSON&locationName=%E8%87%BA%E4%B8%AD%E5%B8%82",function(data){
             let city = data.records.location[0].locationName;
-            console.log(data);
+            // let datasetdescription = data.records.datasetDescription;
+            let Wx = data.records.location[0].weatherElement[0].time[0].parameter.parameterName;
+            let startTime = data.records.location[0].weatherElement[0].time[0].startTime;
+            let endTime = data.records.location[0].weatherElement[0].time[0].endTime;
+            let PoP = data.records.location[0].weatherElement[1].time[0].parameter.parameterName;
+            let CI = data.records.location[0].weatherElement[3].time[0].parameter.parameterName;
+            let MinT = data.records.location[0].weatherElement[2].time[0].parameter.parameterName;
+            let MaxT = data.records.location[0].weatherElement[4].time[0].parameter.parameterName;
+
+            let T=(MinT+MaxT)*0.5;
+
+            // console.log(data);
+            console.log(MinT);
+            console.log(MaxT);
+            console.log(T);
+
+            // $("#").text();
+
+
+            $("#city").text(city);
+            // $("#datasetdescription").text(datasetdescription);
+            $("#Wx").text(Wx);
+            $("#startTime").text(startTime);
+            $("#endTime").text(endTime);
+            $("#PoP").text(PoP+"%");
+            $("#CI").text(CI);
+            $("#MinT").text(MinT+"°C");
+            $("#MaxT").text(MaxT+"°C");
+            $("#T").text(T+"°C");
         });
     });
 </script>

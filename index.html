@@ -18,7 +18,7 @@
         <!-- CSS -->
         <style type="text/css">
             #flotcontainer {
-                width: 600px ;
+                width: 500px ;
                 height: 200px;
                 text-align: left;
             }
@@ -31,7 +31,7 @@
                 <a class="navbar-brand" href="index.html">Start Bootstrap</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
-                    <i class="fas fa-bars"></i>
+                    <i class="fas fa-b896y7sars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
@@ -72,45 +72,25 @@
                     <hr class="my-4" />
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <a href="post.html"><h2 class="post-title">I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.</h2></a>
+                        <a href="post.html"><h2 class="post-title">台灣中央氣象局API導入測試</h2></a>
                         <p class="post-meta">
                             Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on September 18, 2021
+                            <a href="#!">賴鵬宇</a>
+                            on October 21, 2021
                         </p>
                     </div>
-                    <!-- Divider-->
                     <hr class="my-4" />
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <a href="post.html">
-                            <h2 class="post-title">Science has not yet mastered prophecy</h2>
-                            <h3 class="post-subtitle">We predict too much for the next year and yet far too little for the next ten.</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on August 24, 2021
-                        </p>
+                        <div class="row" style="margin-top: 10px; text-align: center;">
+                            <button onclick="add_pic()" class="btn btn-primary col-2" type="button" id="add_pic">添加一份照片</button>
+                            <button onclick="delete_pic()" style="margin-left: 5px ;" class="btn btn-outline-secondary col-2" type="button">刪除照片</button>
+                          </div>
+                              <div id="addpic">
+                          </div>
                     </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="post.html">
-                            <h2 class="post-title">Failure is not an option</h2>
-                            <h3 class="post-subtitle">Many say exploration is part of our destiny, but it’s actually our duty to future generations.</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on July 8, 2021
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
                     <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+                    <!-- <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div> -->
                 </div>
             </div>
         </div>
@@ -152,21 +132,58 @@
     <script src="http://static.pureexample.com/js/flot/jquery.flot.min.js"></script>
     <script src="http://static.pureexample.com/js/flot/jquery.flot.pie.min.js"></script>
 <script>
+    // 圓餅圖
     $(function () { 
         var data = [
-            {label: "data1", data:10},
-            {label: "data2", data: 20},
-            {label: "data3", data: 30},
+            {label: "我是10", data:10},
+            {label: "我是20", data: 20},
+            {label: "而我是30", data: 30},
         ];
 
         var options = {
                 series: {
-                    pie: {show: true}
+                    pie: {show: true},
+
                 }
             };
 
         $.plot($("#flotcontainer"), data, options);  
     });
+
+//新增圖片方法
+  function add_pic(){
+    count++
+  	$('#addpic').append('<div id="imgfile'+count+'">\
+    <input type="file" onchange="show_preview(this)">\
+    <img scr"#" style="display:none;max-height:10%;max-width:20%" onclick="pic_enlarge(this)" > </div>'
+    );
+  }
+    //圖片預覽
+    function show_preview(input){
+    if(input.files && input.files[0]){
+      console.log(input.files);
+      console.log(input.files[0]);
+      var reader = new FileReader();
+      reader.readAsDataURL(input.files[0]);
+      reader.onload = function c(e){
+        var img =$(input).parent().find('img');
+        img.attr('src', e.target.result);
+        img.css('inline');
+      }
+    }
+  }
+  function pic_enlarge(pic){
+    
+  }
+
+  //刪除圖片
+  function delete_pic(){
+    var imgfile=document.querySelector("#imgfile");
+    var pictest=document.querySelector("#pictest");
+    imgfile.remove();
+    pictest.remove();
+  }
+
 </script>
 
 </html>
